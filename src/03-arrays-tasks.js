@@ -531,8 +531,17 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const map = new Map();
+
+  array.map((value) => {
+    const key = keySelector(value);
+    if (map.has(key)) map.get(key).push(valueSelector(value));
+    else map.set(key, [valueSelector(value)]);
+    return value;
+  });
+
+  return map;
 }
 
 /**
